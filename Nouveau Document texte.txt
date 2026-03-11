@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Marketing Content Generator V2</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f3f3f3;
+padding:30px;
+}
+
+.container{
+background:white;
+padding:25px;
+border-radius:10px;
+max-width:800px;
+margin:auto;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin-bottom:10px;
+}
+
+button{
+padding:12px;
+background:#2c7a4b;
+color:white;
+border:none;
+cursor:pointer;
+margin-top:10px;
+}
+
+.result{
+background:#fafafa;
+padding:15px;
+margin-top:15px;
+border-radius:6px;
+}
+
+canvas{
+margin-top:20px;
+border:1px solid #ddd;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Marketing Content Generator V2</h2>
+
+<input id="company" placeholder="Nom entreprise">
+
+<input id="product" placeholder="Produit / service">
+
+<input id="price" placeholder="Prix ou offre">
+
+<input id="city" placeholder="Ville">
+
+<select id="type">
+<option value="promo">Promotion</option>
+<option value="new">Nouveau produit</option>
+<option value="flash">Vente flash</option>
+<option value="tips">Conseil</option>
+<option value="event">Événement</option>
+</select>
+
+<button onclick="generate()">Générer contenu</button>
+
+<div class="result">
+<h3>Textes marketing</h3>
+<div id="texts"></div>
+</div>
+
+<div class="result">
+<h3>Angles publicitaires</h3>
+<div id="angles"></div>
+</div>
+
+<div class="result">
+<h3>Hashtags</h3>
+<div id="hashtags"></div>
+</div>
+
+<div class="result">
+<h3>Idées de contenu</h3>
+<div id="ideas"></div>
+</div>
+
+<canvas id="canvas" width="800" height="800"></canvas>
+
+<br>
+
+<button onclick="download()">Télécharger visuel</button>
+
+</div>
+
+<script>
+
+function generate(){
+
+let company=document.getElementById("company").value
+let product=document.getElementById("product").value
+let price=document.getElementById("price").value
+let city=document.getElementById("city").value
+
+let texts=[
+
+"🔥 Offre spéciale chez "+company+" !\n\n"+product+" à seulement "+price+".\nDisponible à "+city+" dès maintenant.",
+
+"🚨 Bon plan du moment !\n\nDécouvrez "+product+" chez "+company+" pour "+price+".\n📍 "+city,
+
+"✨ Nouveauté !\n\n"+company+" propose maintenant "+product+" au prix de "+price+".\nDisponible à "+city,
+
+"⚡ Opportunité à ne pas rater.\n\n"+product+" disponible chez "+company+" pour seulement "+price+".\nStock limité.",
+
+"💥 Promotion locale.\n\nRetrouvez "+product+" chez "+company+" à "+city+" pour "+price+"."
+]
+
+document.getElementById("texts").innerHTML=texts.join("<hr>")
+
+let angles=[
+
+"Angle prix : produit accessible à petit prix",
+
+"Angle rareté : stock limité",
+
+"Angle découverte : produit tendance",
+
+"Angle local : commerce de proximité",
+
+"Angle problème/solution : améliore votre quotidien"
+]
+
+document.getElementById("angles").innerHTML=angles.join("<br>")
+
+let hashtags="#business #promo #bonplan #"+city.toLowerCase().replace(" ","")+" #shopping #deal"
+
+document.getElementById("hashtags").innerText=hashtags
+
+let ideas=[
+
+"Avant / après avec "+product,
+
+"Vidéo courte démonstration",
+
+"Top 3 raisons d'utiliser "+product,
+
+"Avis client",
+
+"Offre flash du week-end",
+
+"Comparatif avec produits concurrents"
+]
+
+document.getElementById("ideas").innerHTML=ideas.join("<br>")
+
+drawVisual(company,product,price)
+
+}
+
+function drawVisual(company,product,price){
+
+let canvas=document.getElementById("canvas")
+let ctx=canvas.getContext("2d")
+
+ctx.fillStyle="#ffffff"
+ctx.fillRect(0,0,800,800)
+
+ctx.fillStyle="#000"
+
+ctx.font="bold 60px Arial"
+ctx.fillText(product,100,300)
+
+ctx.font="bold 90px Arial"
+ctx.fillText(price,100,450)
+
+ctx.font="30px Arial"
+ctx.fillText(company,100,600)
+
+}
+
+function download(){
+
+let canvas=document.getElementById("canvas")
+
+let link=document.createElement("a")
+
+link.download="marketing-post.png"
+
+link.href=canvas.toDataURL()
+
+link.click()
+
+}
+
+</script>
+
+</body>
+</html>
